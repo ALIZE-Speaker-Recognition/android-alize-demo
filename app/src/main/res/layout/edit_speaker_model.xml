@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/add_speaker_name_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:hint="@string/speaker_name"
+        android:maxLength="15"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/startBtn"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_below="@+id/add_speaker_name_editText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_record_button"/>
+
+    <Button
+        android:id="@+id/stopBtn"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_below="@+id/add_speaker_name_editText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_pause_button"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/stopBtn"
+        android:textSize="42sp"
+        android:layout_marginTop="10dp"
+        android:text="@string/default_time"/>
+
+    <Button
+        android:id="@+id/update_speaker_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/update_speaker_button" />
+
+</RelativeLayout>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ALIZE-Android</string>
+    <string name="speakers_list">Liste des locuteurs</string>
+    <string name="verification">Vérification</string>
+    <string name="no_speakers">Il n\'existe aucun locuteur pour le moment.</string>
+    <string name="edit_speaker_model">Modifier le modèle du locuteur</string>
+    <string name="new_speaker">Ajouter un locuteur</string>
+    <string name="empty" />
+    <string name="test_speaker">Tester</string>
+    <string name="update_speaker">Modifier</string>
+    <string name="speaker_name">Nom du locuteur</string>
+    <string name="update_speaker_button">Modifier locuteur</string>
+    <string name="identify">Identifier</string>
+    <string name="remove_all">Retirer tous les locuteurs</string>
+    <string name="default_time">00:00:00</string>
+    <string name="speakerExist">Ce nom de locuteur existe déjà !</string>
+    <string name="recording_completed">Enregistrement effectué.</string>
+    <string name="identify_speaker">Identifier un locuteur</string>
+    <string name="permission_error_message">Vous ne pouvez pas utiliser cette app sans cette permission.</string>
+    <string name="no_sound_detected_recoloc">Aucune parole détectée, veuillez réessayer.</string>
+    <string name="error_remove_speaker">Une erreur est survenue lors de la supression de cet utilisateur.</string>
+</resources>

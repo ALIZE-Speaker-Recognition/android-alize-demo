@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ALIZE-Android</string>
+    <string name="speakers_list">Speakers list</string>
+    <string name="verification">Verification</string>
+    <string name="no_speakers">There are no speakers in the system at the moment.</string>
+    <string name="edit_speaker_model">Edit Speaker Model</string>
+    <string name="new_speaker">Add speaker</string>
+    <string name="empty" />
+    <string name="test_speaker">Test</string>
+    <string name="update_speaker">Update</string>
+    <string name="speaker_name">Speaker name</string>
+    <string name="update_speaker_button">Update Speaker</string>
+    <string name="identify">Identify</string>
+    <string name="remove_all">Remove All Speakers</string>
+    <string name="default_time">00:00:00</string>
+    <string name="speakerExist">This speaker name already exists!</string>
+    <string name="recording_completed">Recording Completed</string>
+    <string name="identify_speaker">Identify a speaker</string>
+    <string name="permission_error_message">You cannot use this app without this permission.</string>
+    <string name="no_sound_detected_recoloc">No speech detected, try again.</string>
+    <string name="error_remove_speaker">An error occurred while the system tried to remove this speaker.</string>
+</resources>

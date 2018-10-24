@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditTextPreference
+        android:title="Recognition threshold"
+        android:key="threshold"
+        android:defaultValue="30"
+        android:inputType="number"
+        android:digits="0123456789"
+        android:summary="The threshold for speaker recognition" />
+
+    <SwitchPreference
+        android:title="Save speakers models"
+        android:key="save_speakers_models"
+        android:summary="When on, all the speakers models will remain in the system" />
+
+    <SwitchPreference
+        android:title="Fancy demo"
+        android:key="fancy_demo"
+        android:summary="Pretty render of the demo" />
+
+</PreferenceScreen>

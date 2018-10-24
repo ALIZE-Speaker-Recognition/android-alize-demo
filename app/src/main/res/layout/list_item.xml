@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/speaker_name"
+        android:layout_width="0sp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:hint="@string/speaker_name" />
+
+    <Button
+        android:id="@+id/update_button"
+        android:layout_width="0sp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/update_speaker"
+        android:onClick="updateSpeakerOnClickHandler"/>
+
+    <Button
+        android:id="@+id/test_button"
+        android:layout_width="0sp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="@string/test_speaker"
+        android:onClick="testSpeakerOnClickHandler"/>
+
+    <ImageButton
+        android:id="@+id/remove_button"
+        android:layout_width="@dimen/width_button"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.3"
+        android:contentDescription="@string/empty"
+        android:onClick="removeSpeakerOnClickHandler"
+        android:src="@android:drawable/ic_menu_delete" />
+</LinearLayout>
