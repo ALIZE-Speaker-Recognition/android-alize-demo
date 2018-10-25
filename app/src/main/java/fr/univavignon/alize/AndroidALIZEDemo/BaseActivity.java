@@ -38,7 +38,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         defaultLanguage = Locale.getDefault();
         SP = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
-        System.out.println(SP.getString("threshold", "30"));
 
         try {
             simpleSpkDetSystemInit();
@@ -72,6 +71,24 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public boolean saveSpeakersModels() {
+        return SP.getBoolean("save_speakers_models", false);
+    }
+
+    public int getThreshold() {
+        int result = 30; //default value
+        try {
+            result = Integer.parseInt(SP.getString("threshold", "30"));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean fancyDemo() {
+        return SP.getBoolean("fancy_demo", false);
     }
 
     protected void startActivity(Class targetActivity) {
