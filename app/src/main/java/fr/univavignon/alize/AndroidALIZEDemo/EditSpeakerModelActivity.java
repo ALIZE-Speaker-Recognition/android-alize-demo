@@ -141,6 +141,10 @@ public class EditSpeakerModelActivity extends RecordActivity {
                     alizeSystem.adaptSpeakerModel(currentSpeakerName);
                 }
 
+                if (saveSpeakersModels()) {
+                    alizeSystem.saveSpeakerModel(currentSpeakerName, currentSpeakerName);
+                }
+
                 //Reset input, since we will not make any more use of this audio signal.
                 alizeSystem.resetAudio();       //Reset the audio samples of the Alize system.
                 alizeSystem.resetFeatures();    //Reset the features of the Alize system.
