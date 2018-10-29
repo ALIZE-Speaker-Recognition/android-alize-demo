@@ -19,4 +19,5 @@
     <string name="permission_error_message">Vous ne pouvez pas utiliser cette app sans cette permission.</string>
     <string name="no_sound_detected_recoloc">Aucune parole détectée, veuillez réessayer.</string>
     <string name="error_remove_speaker">Une erreur est survenue lors de la supression de cet utilisateur.</string>
+    <string name="invalid_threshold">The threshold must be a valid number.</string>
 </resources>

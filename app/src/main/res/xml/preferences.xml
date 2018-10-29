@@ -6,14 +6,20 @@
         android:title="Recognition threshold"
         android:key="threshold"
         android:defaultValue="30"
-        android:inputType="number"
-        android:digits="0123456789"
+        android:inputType="numberSigned"
         android:summary="The threshold for speaker recognition" />
 
     <SwitchPreference
-        android:title="Save speakers models"
+        android:disableDependentsState="true"
         android:key="save_speakers_models"
-        android:summary="When on, all the speakers models will remain in the system" />
+        android:summary="When on, all the speakers models will remain in the system"
+        android:title="Save speakers models" />
+
+    <Preference
+        android:dependency='save_speakers_models'
+        android:title="Revert speaker list"
+        android:key="reset_speakers_list"
+        android:summary="Reload speaker models from disk"/>
 
     <SwitchPreference
         android:title="Fancy demo"

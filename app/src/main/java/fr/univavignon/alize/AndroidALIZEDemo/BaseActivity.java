@@ -39,6 +39,8 @@ public class BaseActivity extends AppCompatActivity {
         defaultLanguage = Locale.getDefault();
         SP = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
 
+        System.out.println(BaseActivity.this.getFilesDir().getPath());
+
         try {
             simpleSpkDetSystemInit();
         }
@@ -78,13 +80,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public int getThreshold() {
-        int result = 30; //default value
-        try {
-            result = Integer.parseInt(SP.getString("threshold", "30"));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return result;
+        return Integer.parseInt(SP.getString("threshold", "30"));
     }
 
     public boolean fancyDemo() {

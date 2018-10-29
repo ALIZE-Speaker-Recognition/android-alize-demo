@@ -19,4 +19,5 @@
     <string name="permission_error_message">You cannot use this app without this permission.</string>
     <string name="no_sound_detected_recoloc">No speech detected, try again.</string>
     <string name="error_remove_speaker">An error occurred while the system tried to remove this speaker.</string>
+    <string name="invalid_threshold">The threshold must be a valid number.</string>
 </resources>
