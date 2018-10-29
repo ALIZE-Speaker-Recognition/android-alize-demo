@@ -13,7 +13,6 @@ import android.widget.EditText;
 import java.io.IOException;
 
 import AlizeSpkRec.AlizeException;
-import AlizeSpkRec.SimpleSpkDetSystem;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -84,6 +83,9 @@ public class SettingsActivity extends PreferenceActivity {
     };
 
     public void resetSpeakersList() throws IOException, AlizeException {
-        SimpleSpkDetSystem alizeSystem = SharedAlize.getInstance(SettingsActivity.this);
+        SpeakersListSaveManager speakersListSaveManager = new SpeakersListSaveManager(SettingsActivity.this);
+        //Read speakersList and load
+        speakersListSaveManager.loadSavedModels();
+        finish();
     }
 }

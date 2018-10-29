@@ -1,8 +1,9 @@
 package fr.univavignon.alize.AndroidALIZEDemo;
 
+import android.content.Context;
+
 import java.io.IOException;
 import java.io.InputStream;
-import android.content.Context;
 
 import AlizeSpkRec.AlizeException;
 import AlizeSpkRec.SimpleSpkDetSystem;
@@ -21,6 +22,11 @@ class SharedAlize {
             InputStream configAsset = appContext.getAssets().open("AlizeDefault.cfg");
             alizeSystem = new SimpleSpkDetSystem(configAsset, appContext.getFilesDir().getPath());
             configAsset.close();
+
+            // We also load the background model from the application assets
+            InputStream backgroundModelAsset = appContext.getAssets().open("gmm/world.gmm");
+            alizeSystem.loadBackgroundModel(backgroundModelAsset);
+            backgroundModelAsset.close();
         }
         return alizeSystem;
     }

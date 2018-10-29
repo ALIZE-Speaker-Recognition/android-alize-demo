@@ -66,13 +66,18 @@ public class SpeakersListActivity extends BaseActivity {
 
     public void removeSpeakerOnClickHandler(View v) {
         Speaker itemToRemove = (Speaker)v.getTag();
-        String speakerId = itemToRemove.getName();
+        String speakerName = itemToRemove.getName();
         try {
-            if (!speakerId.isEmpty()) {
+            if (!speakerName.isEmpty()) {
                 //Remove the speaker speakerId from the Alize system.
-                alizeSystem.removeSpeaker(speakerId);
+                alizeSystem.removeSpeaker(getSpeakerId(speakerName));
             }
             updateSpeakersListObject();
+
+            if (saveSpeakersModels()) {
+                SpeakersListSaveManager speakersListSaveManager = new SpeakersListSaveManager(SpeakersListActivity.this);
+                speakersListSaveManager.removeSpeaker(getSpeakerId(speakerName), speakerName);
+            }
         } catch (AlizeException e) {
             System.out.println(e.getMessage());
             makeToast(getString(R.string.error_remove_speaker));
@@ -127,7 +132,7 @@ public class SpeakersListActivity extends BaseActivity {
         }
         adapter.clear();
         for (String speakerId : speakers) {
-            adapter.insert(new Speaker(speakerId), adapter.getCount());
+            adapter.insert(new Speaker(getSpeakerName(speakerId)), adapter.getCount());
         }
     }
 

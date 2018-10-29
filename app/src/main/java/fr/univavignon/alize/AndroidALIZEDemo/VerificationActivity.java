@@ -92,7 +92,7 @@ public class VerificationActivity extends RecordActivity {
 
             try {
                 //Compare the audio signal with the speaker model we created earlier.
-                SimpleSpkDetSystem.SpkRecResult verificationResult = alizeSystem.verifySpeaker(speakerName);
+                SimpleSpkDetSystem.SpkRecResult verificationResult = alizeSystem.verifySpeaker(getSpeakerId(speakerName));
 
                 if (verificationResult.match) {
                     result = "Match\nScore:\n" + verificationResult.score;

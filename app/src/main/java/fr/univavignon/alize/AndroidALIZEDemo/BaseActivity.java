@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Locale;
 import java.util.Map;
 
@@ -26,20 +25,18 @@ import AlizeSpkRec.SimpleSpkDetSystem;
  */
 public class BaseActivity extends AppCompatActivity {
 
+    protected SharedPreferences SP;
     protected Locale defaultLanguage;
     /**
      *  Allow to use Alize features.
      */
     protected SimpleSpkDetSystem alizeSystem;
-    protected SharedPreferences SP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         defaultLanguage = Locale.getDefault();
         SP = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
-
-        System.out.println(BaseActivity.this.getFilesDir().getPath());
 
         try {
             simpleSpkDetSystemInit();
@@ -121,12 +118,20 @@ public class BaseActivity extends AppCompatActivity {
      * @throws AlizeException Thorws if there was a problem in the Alize system execution.
      */
     private void simpleSpkDetSystemInit() throws IOException, AlizeException {
-        // Initialization:
         alizeSystem = SharedAlize.getInstance(getApplicationContext());
+    }
 
-        // We also load the background model from the application assets
-        InputStream backgroundModelAsset = getApplicationContext().getAssets().open("gmm/world.gmm");
-        alizeSystem.loadBackgroundModel(backgroundModelAsset);
-        backgroundModelAsset.close();
+    protected String getSpeakerId(String name) {
+        return SpeakersList.getList().get(name);
+    }
+
+    protected String getSpeakerName(String id) {
+        String result = "";
+        for (Map.Entry<String, String> entry : SpeakersList.getList().entrySet()) {
+            if (entry.getValue().equals(id)) {
+                result = entry.getKey();
+            }
+        }
+        return result;
     }
 }

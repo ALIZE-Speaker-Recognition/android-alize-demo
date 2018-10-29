@@ -2,7 +2,7 @@ package fr.univavignon.alize.AndroidALIZEDemo;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit list_item, which will execute on the development machine (host).
