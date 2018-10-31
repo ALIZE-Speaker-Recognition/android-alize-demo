@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.SwitchPreference;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import java.io.IOException;
 
@@ -18,11 +20,18 @@ public class SettingsActivity extends PreferenceActivity {
 
     private EditText thresholdEditText;
     private AlertDialog thresholdDialog;
+    private DemoSpkRecSystem demoSpkRecSystem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+        try {
+            demoSpkRecSystem = DemoSpkRecSystem.getSharedInstance(SettingsActivity.this);
+
+        } catch (AlizeException | IOException e) {
+            e.printStackTrace();
+        }
 
         Preference resetSpeakersList = findPreference("reset_speakers_list");
         if (resetSpeakersList != null) {
@@ -32,6 +41,11 @@ public class SettingsActivity extends PreferenceActivity {
         Preference threshold = findPreference("threshold");
         if (threshold != null) {
             threshold.setOnPreferenceClickListener(preferenceListListener);
+        }
+
+        Preference saveModels = findPreference("save_speakers_models");
+        if (saveModels != null) {
+            saveModels.setOnPreferenceClickListener(preferenceListListener);
         }
     }
 
@@ -47,7 +61,16 @@ public class SettingsActivity extends PreferenceActivity {
                     thresholdEditText.addTextChangedListener(thresholdListener);
                 }
                 else if (preference.getKey().equals("reset_speakers_list")) {
-                    resetSpeakersList();
+                    //Load the saved models
+                    demoSpkRecSystem.loadSavedModels();
+
+                    finish();
+                }
+                else if (preference.getKey().equals("save_speakers_models")) {
+                    SwitchPreference saveModels = (SwitchPreference)preference;
+                    if (saveModels.isChecked()) {
+                        demoSpkRecSystem.syncToDisc();
+                    }
                 }
             }
             catch (AlizeException | IOException e) {
@@ -81,11 +104,4 @@ public class SettingsActivity extends PreferenceActivity {
         @Override
         public void afterTextChanged(Editable editable) { }
     };
-
-    public void resetSpeakersList() throws IOException, AlizeException {
-        SpeakersListSaveManager speakersListSaveManager = new SpeakersListSaveManager(SettingsActivity.this);
-        //Read speakersList and load
-        speakersListSaveManager.loadSavedModels();
-        finish();
-    }
 }

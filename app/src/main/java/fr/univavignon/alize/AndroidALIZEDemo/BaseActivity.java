@@ -30,7 +30,7 @@ public class BaseActivity extends AppCompatActivity {
     /**
      *  Allow to use Alize features.
      */
-    protected SimpleSpkDetSystem alizeSystem;
+    protected DemoSpkRecSystem demoSpkRecSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,8 @@ public class BaseActivity extends AppCompatActivity {
         SP = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
 
         try {
-            simpleSpkDetSystemInit();
+            //Initialize the SpeakerRecognition system and get the singleton instance.
+            demoSpkRecSystem = DemoSpkRecSystem.getSharedInstance(BaseActivity.this);
         }
         catch (AlizeException | IOException e) {
             e.printStackTrace();
@@ -70,10 +71,6 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    public boolean saveSpeakersModels() {
-        return SP.getBoolean("save_speakers_models", false);
     }
 
     public int getThreshold() {
@@ -110,28 +107,5 @@ public class BaseActivity extends AppCompatActivity {
      */
     protected void makeToast(String text) {
         Toast.makeText(BaseActivity.this, text, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Innitialize the Alize system and call the Alize singleton instance.
-     * @throws IOException Throws if the config or wold model files doesn't exists.
-     * @throws AlizeException Thorws if there was a problem in the Alize system execution.
-     */
-    private void simpleSpkDetSystemInit() throws IOException, AlizeException {
-        alizeSystem = SharedAlize.getInstance(getApplicationContext());
-    }
-
-    protected String getSpeakerId(String name) {
-        return SpeakersList.getList().get(name);
-    }
-
-    protected String getSpeakerName(String id) {
-        String result = "";
-        for (Map.Entry<String, String> entry : SpeakersList.getList().entrySet()) {
-            if (entry.getValue().equals(id)) {
-                result = entry.getKey();
-            }
-        }
-        return result;
     }
 }

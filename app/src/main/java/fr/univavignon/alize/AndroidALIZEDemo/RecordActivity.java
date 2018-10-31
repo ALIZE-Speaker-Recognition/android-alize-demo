@@ -81,8 +81,8 @@ public class RecordActivity extends BaseActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             try {
                 //Reset input, since we will not make any more use of this audio signal.
-                alizeSystem.resetAudio();       //Reset the audio samples of the Alize system.
-                alizeSystem.resetFeatures();    //Reset the features of the Alize system.
+                demoSpkRecSystem.resetAudio();       //Reset the audio samples of the Alize system.
+                demoSpkRecSystem.resetFeatures();    //Reset the features of the Alize system.
             } catch (AlizeException e) {
                 e.printStackTrace();
             }
@@ -114,8 +114,8 @@ public class RecordActivity extends BaseActivity {
         if (recordExists) {
             try {
                 //Reset input, since we will not make any more use of this audio signal.
-                alizeSystem.resetAudio();       //Reset the audio samples of the Alize system.
-                alizeSystem.resetFeatures();    //Reset the features of the Alize system.
+                demoSpkRecSystem.resetAudio();       //Reset the audio samples of the Alize system.
+                demoSpkRecSystem.resetFeatures();    //Reset the features of the Alize system.
             } catch (AlizeException e) {
                 e.printStackTrace();
             }
@@ -175,7 +175,7 @@ public class RecordActivity extends BaseActivity {
                     if (nextElement != null) {
                         try {
                             //Receive an audio signal as 16-bit signed integer linear PCM, parameterize it and add it to the feature server.
-                            alizeSystem.addAudio(nextElement);
+                            demoSpkRecSystem.addAudio(nextElement);
                         } catch (AlizeException e) {
                             e.printStackTrace();
                         }
@@ -193,7 +193,7 @@ public class RecordActivity extends BaseActivity {
 
                     if (nextElement != null) {
                         try {
-                            alizeSystem.addAudio(nextElement);
+                            demoSpkRecSystem.addAudio(nextElement);
                         } catch (AlizeException e) {
                             e.printStackTrace();
                         }

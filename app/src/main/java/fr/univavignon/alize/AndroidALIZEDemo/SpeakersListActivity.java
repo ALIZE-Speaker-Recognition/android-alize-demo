@@ -36,7 +36,7 @@ public class SpeakersListActivity extends BaseActivity {
             ListView speakerListView = findViewById(R.id.speakerListView);
             speakerListView.setAdapter(adapter);
 
-            speakers = alizeSystem.speakerIDs();    //Get all speakers name.
+            speakers = demoSpkRecSystem.speakerIDs();    //Get all speakers name.
             noSpeakers = findViewById(R.id.no_speakers);
             removeAll = findViewById(R.id.removeall_button);
             identifyButton = findViewById(R.id.identify_button);
@@ -53,33 +53,29 @@ public class SpeakersListActivity extends BaseActivity {
     public void updateSpeakerOnClickHandler(View v) {
         final Speaker itemToUpdate = (Speaker)v.getTag();
         startActivity(EditSpeakerModelActivity.class, new HashMap<String, Object>(){{
-            put("speakerName", itemToUpdate.getName());
+            put("speakerId", itemToUpdate.getId());
         }});
     }
 
     public void testSpeakerOnClickHandler(View v) {
         final Speaker itemToTest = (Speaker)v.getTag();
         startActivity(VerificationActivity.class, new HashMap<String, Object>(){{
-            put("speakerName", itemToTest.getName());
+            put("speakerId", itemToTest.getId());
         }});
     }
 
     public void removeSpeakerOnClickHandler(View v) {
         Speaker itemToRemove = (Speaker)v.getTag();
-        String speakerName = itemToRemove.getName();
+        String speakerId = itemToRemove.getId();
         try {
-            if (!speakerName.isEmpty()) {
+            if (!speakerId.isEmpty() && !itemToRemove.getName().isEmpty()) {
                 //Remove the speaker speakerId from the Alize system.
-                alizeSystem.removeSpeaker(getSpeakerId(speakerName));
+                demoSpkRecSystem.removeSpeaker(speakerId);
             }
             updateSpeakersListObject();
 
-            if (saveSpeakersModels()) {
-                SpeakersListSaveManager speakersListSaveManager = new SpeakersListSaveManager(SpeakersListActivity.this);
-                speakersListSaveManager.removeSpeaker(getSpeakerId(speakerName), speakerName);
-            }
         } catch (AlizeException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             makeToast(getString(R.string.error_remove_speaker));
         }
         adapter.remove(itemToRemove);
@@ -88,13 +84,13 @@ public class SpeakersListActivity extends BaseActivity {
 
     public void addSpeaker(View v) {
         startActivity(EditSpeakerModelActivity.class, new HashMap<String, Object>(){{
-            put("speakerName", "");
+            put("speakerId", "");
         }});
     }
 
     public void identify(View v) {
         startActivity(VerificationActivity.class, new HashMap<String, Object>(){{
-            put("speakerName", "");
+            put("speakerId", "");
         }});
     }
 
@@ -102,7 +98,7 @@ public class SpeakersListActivity extends BaseActivity {
         //TODO find why removeAllSpeakers() doesn't works
         try {
             //Remove all the speakers from the Alize system.
-            alizeSystem.removeAllSpeakers();
+            demoSpkRecSystem.removeAllSpeakers();
             adapter.clear();
             updateSpeakersListObject();
             updateListViewContent();
@@ -132,7 +128,7 @@ public class SpeakersListActivity extends BaseActivity {
         }
         adapter.clear();
         for (String speakerId : speakers) {
-            adapter.insert(new Speaker(getSpeakerName(speakerId)), adapter.getCount());
+            adapter.insert(new Speaker(speakerId, demoSpkRecSystem.getSpeakerName(speakerId)), adapter.getCount());
         }
     }
 
@@ -157,7 +153,7 @@ public class SpeakersListActivity extends BaseActivity {
     }
 
     private void updateSpeakersListObject() throws AlizeException {
-        speakers = alizeSystem.speakerIDs(); //Get all speakers name.
+        speakers = demoSpkRecSystem.speakerIDs(); //Get all speakers ids.
     }
 
 }
