@@ -56,7 +56,7 @@ public class DemoSpkRecSystem extends SimpleSpkDetSystem {
                 sharedSystem.saveList();
             }
             else {
-                nextSpeakerId = sharedSystem.getLastSpeakerID();
+                sharedSystem.loadSavedModels();
             }
         }
         return sharedSystem;
@@ -126,6 +126,7 @@ public class DemoSpkRecSystem extends SimpleSpkDetSystem {
     public void removeAllSpeakers() throws AlizeException {
         //TODO complete this
         //super.removeAllSpeakers();
+        //if (shouldKeepStateOnDisk()) -> reset the list
     }
 
 
@@ -170,6 +171,7 @@ public class DemoSpkRecSystem extends SimpleSpkDetSystem {
         BufferedReader bufferedReader = null;
 
         try {
+            int lastId = -1;
             String lineContent;
             fileReader = new FileReader(nameListFilePath);
             bufferedReader = new BufferedReader(fileReader);
@@ -180,9 +182,18 @@ public class DemoSpkRecSystem extends SimpleSpkDetSystem {
                 String speakerId = lineContent.split(":")[0];
                 String speakerName = lineContent.split(":")[1];
 
+                int id = Integer.parseInt(speakerId);
+                if (id > lastId) {
+                    lastId = id;
+                }
+
                 nameList.put(speakerId, speakerName);
             }
 
+            if (lastId != -1) {
+                nextSpeakerId = lastId + 1;
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -201,45 +212,5 @@ public class DemoSpkRecSystem extends SimpleSpkDetSystem {
                 ex.printStackTrace();
             }
         }
-    }
-
-    private int getLastSpeakerID() {
-        int lastId = -1;
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
-
-        try {
-            String lineContent;
-            fileReader = new FileReader(nameListFilePath);
-            bufferedReader = new BufferedReader(fileReader);
-
-            while ((lineContent = bufferedReader.readLine()) != null) {
-                int speakerId = Integer.parseInt(lineContent.split(":")[0]);
-
-                if (speakerId > lastId) {
-                    lastId = speakerId;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                }
-
-                if (fileReader != null) {
-                    fileReader.close();
-                }
-
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        if (lastId == -1) {
-            return 0;
-        }
-        return ++lastId;
     }
 }
