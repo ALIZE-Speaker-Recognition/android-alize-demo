@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 
 import java.io.IOException;
 
@@ -53,24 +52,26 @@ public class SettingsActivity extends PreferenceActivity {
         @Override
         public boolean onPreferenceClick(Preference preference) {
             try {
-                if (preference.getKey().equals("threshold")) {
-                    EditTextPreference threshold = (EditTextPreference)preference;
-                    thresholdDialog = (AlertDialog)threshold.getDialog();
+                switch (preference.getKey()) {
+                    case "threshold":
+                        EditTextPreference threshold = (EditTextPreference) preference;
+                        thresholdDialog = (AlertDialog) threshold.getDialog();
 
-                    thresholdEditText = threshold.getEditText();
-                    thresholdEditText.addTextChangedListener(thresholdListener);
-                }
-                else if (preference.getKey().equals("reset_speakers_list")) {
-                    //Load the saved models
-                    demoSpkRecSystem.loadSavedModels();
+                        thresholdEditText = threshold.getEditText();
+                        thresholdEditText.addTextChangedListener(thresholdListener);
+                        break;
+                    case "reset_speakers_list":
+                        //Load the saved models
+                        demoSpkRecSystem.loadSavedModels();
 
-                    finish();
-                }
-                else if (preference.getKey().equals("save_speakers_models")) {
-                    SwitchPreference saveModels = (SwitchPreference)preference;
-                    if (saveModels.isChecked()) {
-                        demoSpkRecSystem.syncToDisc();
-                    }
+                        finish();
+                        break;
+                    case "save_speakers_models":
+                        SwitchPreference saveModels = (SwitchPreference) preference;
+                        if (saveModels.isChecked()) {
+                            demoSpkRecSystem.syncToDisc();
+                        }
+                        break;
                 }
             }
             catch (AlizeException | IOException e) {

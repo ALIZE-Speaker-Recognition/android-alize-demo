@@ -15,7 +15,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import AlizeSpkRec.AlizeException;
-import AlizeSpkRec.SimpleSpkDetSystem;
 
 /**
  *  This class is the base activity.
