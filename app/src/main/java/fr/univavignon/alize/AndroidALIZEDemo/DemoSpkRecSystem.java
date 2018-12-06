@@ -124,9 +124,10 @@ public class DemoSpkRecSystem extends SimpleSpkDetSystem {
 
     @Override
     public void removeAllSpeakers() throws AlizeException {
-        //TODO complete this
-        //super.removeAllSpeakers();
-        //if (shouldKeepStateOnDisk()) -> reset the list
+        //current fix for the method super.removeAllSpeakers() that doesn't work yet
+        for (String speaker : speakerIDs()) {
+            this.removeSpeaker(speaker);
+        }
     }
 
 
