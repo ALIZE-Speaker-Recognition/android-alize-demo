@@ -3,7 +3,6 @@ package fr.univavignon.alize.AndroidALIZEDemo;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -77,7 +76,6 @@ public class DemoSpkRecSystem extends SimpleSpkDetSystem {
     }
 
     public void syncToDisc() throws AlizeException {
-        Log.i("AAAAAAAAAAAAAAAAAAAA", String.valueOf(speakerIDs().length));
         saveList();
         for (Map.Entry<String, String> entry : nameList.entrySet()) {
             super.saveSpeakerModel(entry.getKey(), entry.getKey());
