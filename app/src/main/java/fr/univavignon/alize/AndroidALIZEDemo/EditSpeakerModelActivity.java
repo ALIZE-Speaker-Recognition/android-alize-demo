@@ -164,6 +164,9 @@ public class EditSpeakerModelActivity extends RecordActivity {
                 e.printStackTrace();
             } catch (IdAlreadyExistsException e) {
                 e.printStackTrace();
+            } catch (Throwable e) { //TODO catch proper exception
+                e.printStackTrace();
+                makeToast(getResources().getString(R.string.recording_not_completed));
             }
         }
     };
@@ -172,6 +175,9 @@ public class EditSpeakerModelActivity extends RecordActivity {
         if (emptyRecord) {
             updateSpeaker.setEnabled(false);
             makeToast(getResources().getString(R.string.no_sound_detected_recoloc));
+        }
+        else if (newSpeaker && !recordExists) {
+            updateSpeaker.setEnabled(false);
         }
         else if (!currentSpeakerName.isEmpty() && !speakerIdAlreadyExists) {
             updateSpeaker.setEnabled(true);

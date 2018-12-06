@@ -15,9 +15,11 @@
     <string name="default_time">00:00:00</string>
     <string name="speakerExist">This speaker name already exists!</string>
     <string name="recording_completed">Recording Completed</string>
+    <string name="recording_not_completed">There was an error with the record, please try again.</string>
     <string name="identify_speaker">Identify a speaker</string>
     <string name="permission_error_message">You cannot use this app without this permission.</string>
-    <string name="no_sound_detected_recoloc">No speech detected, try again.</string>
+    <string name="no_sound_detected_recoloc">No sound detected, please check your setup.</string>
+    <string name="no_speech_detected_recoloc">No speech detected, please try again.</string>
     <string name="error_remove_speaker">An error occurred while the system tried to remove this speaker.</string>
     <string name="invalid_threshold">The threshold must be a valid number.</string>
 </resources>

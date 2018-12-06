@@ -15,9 +15,11 @@
     <string name="default_time">00:00:00</string>
     <string name="speakerExist">Ce nom de locuteur existe déjà !</string>
     <string name="recording_completed">Enregistrement effectué.</string>
+    <string name="recording_not_completed">Il y a eu une erreur pendant l\'enregistrement, veuillez réessayer.</string>
     <string name="identify_speaker">Identifier un locuteur</string>
     <string name="permission_error_message">Vous ne pouvez pas utiliser cette app sans cette permission.</string>
-    <string name="no_sound_detected_recoloc">Aucune parole détectée, veuillez réessayer.</string>
+    <string name="no_sound_detected_recoloc">Aucun son détecté, veuillez vérifier votre configuration.</string>
+    <string name="no_speech_detected_recoloc">Aucune parole détectée, veuillez réessayer.</string>
     <string name="error_remove_speaker">Une erreur est survenue lors de la supression de cet utilisateur.</string>
     <string name="invalid_threshold">The threshold must be a valid number.</string>
 </resources>

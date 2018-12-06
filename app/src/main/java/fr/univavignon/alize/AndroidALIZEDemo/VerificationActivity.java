@@ -66,6 +66,13 @@ public class VerificationActivity extends RecordActivity {
 
     protected void afterRecordProcessing() {
         String result = "Error";
+        resultText.setTextColor(ERROR_COLOR);
+
+        if (recordError) {
+            resultText.setText(result);
+            makeToast(getResources().getString(R.string.recording_not_completed));
+            return;
+        }
 
         if (identify) {
             //Try to match a speaker with the record
@@ -86,6 +93,9 @@ public class VerificationActivity extends RecordActivity {
             }
             catch (AlizeException e) {
                 e.printStackTrace();
+            } catch (Throwable e) { //TODO catch proper exception
+                e.printStackTrace();
+                makeToast(getResources().getString(R.string.recording_not_completed));
             }
         }
         else {
@@ -106,6 +116,9 @@ public class VerificationActivity extends RecordActivity {
             }
             catch (AlizeException e) {
                 e.printStackTrace();
+            } catch (Throwable e) { //TODO catch proper exception
+                e.printStackTrace();
+                makeToast(getResources().getString(R.string.recording_not_completed));
             }
         }
         resultText.setText(result);

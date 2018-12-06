@@ -41,6 +41,7 @@ public class RecordActivity extends BaseActivity {
     protected TextView timeText;
     protected boolean emptyRecord = false;
     protected boolean recordExists = false;
+    protected boolean recordError = false;
     protected AudioRecord recorder = null;
     protected Button startRecordButton, stopRecordButton;
     protected Thread recordingThread = null, addSamplesThread = null, timerThread = null;
@@ -101,6 +102,7 @@ public class RecordActivity extends BaseActivity {
         }
 
         emptyRecord = true;
+        recordError = false;
         startRecordButton.setVisibility(View.INVISIBLE);
         stopRecordButton.setVisibility(View.VISIBLE);
         timeText.setText(R.string.default_time);
@@ -178,6 +180,9 @@ public class RecordActivity extends BaseActivity {
                             demoSpkRecSystem.addAudio(nextElement);
                         } catch (AlizeException e) {
                             e.printStackTrace();
+                        } catch (Throwable e) { //TODO catch proper exception
+                            e.printStackTrace();
+                            recordError = true;
                         }
                     }
                 }
@@ -196,6 +201,9 @@ public class RecordActivity extends BaseActivity {
                             demoSpkRecSystem.addAudio(nextElement);
                         } catch (AlizeException e) {
                             e.printStackTrace();
+                        } catch (Throwable e) { //TODO catch proper exception
+                            e.printStackTrace();
+                            recordError = true;
                         }
                     }
                 }
@@ -249,12 +257,16 @@ public class RecordActivity extends BaseActivity {
             }
             recorder.release();
             recorder = null;
-            recordExists = true;
+            recordExists = !recordError;
             recordingThread = null;
             addSamplesThread = null;
             startRecordButton.setVisibility(View.VISIBLE);
 
-            makeToast(getResources().getString(R.string.recording_completed));
+            String resultText = getResources().getString(R.string.recording_completed);
+            if (!recordExists) {
+                resultText = getResources().getString(R.string.recording_not_completed);
+            }
+            makeToast(resultText);
             afterRecordProcessing();
         }
     }
