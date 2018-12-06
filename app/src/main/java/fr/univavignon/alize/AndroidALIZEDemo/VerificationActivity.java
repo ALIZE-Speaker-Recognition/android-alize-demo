@@ -20,7 +20,7 @@ public class VerificationActivity extends RecordActivity {
     private final int ERROR_COLOR = Color.RED;
     private final int SUCCESS_COLOR = Color.rgb(0,150,0);
 
-    private String speakerName;
+    private String speakerId;
     private TextView resultText;
     private boolean identify = false;
 
@@ -30,7 +30,8 @@ public class VerificationActivity extends RecordActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.verification);
 
-            speakerName = getIntent().getStringExtra("speakerName");
+            speakerId = getIntent().getStringExtra("speakerId");
+            String speakerName = demoSpkRecSystem.getSpeakerName(speakerId);
             resultText = findViewById(R.id.result_text);
             startRecordButton = findViewById(R.id.startBtn);
             stopRecordButton = findViewById(R.id.stopBtn);
@@ -72,10 +73,10 @@ public class VerificationActivity extends RecordActivity {
             try {
                 //This is the other main task of speaker recognition: compare a recording with all the speakers
                 //known to the system in order to determine whose voice it is (or reject it as unknown).
-                SimpleSpkDetSystem.SpkRecResult identificationResult = alizeSystem.identifySpeaker();
+                SimpleSpkDetSystem.SpkRecResult identificationResult = demoSpkRecSystem.identifySpeaker();
 
                 if (identificationResult.match) {
-                    result = "Match:\n" + identificationResult.speakerId + "\nScore:\n" + identificationResult.score;
+                    result = "Match:\n" + demoSpkRecSystem.getSpeakerName(identificationResult.speakerId) + "\nScore:\n" + identificationResult.score;
                     resultText.setTextColor(SUCCESS_COLOR);
                 }
                 else {
@@ -92,7 +93,7 @@ public class VerificationActivity extends RecordActivity {
 
             try {
                 //Compare the audio signal with the speaker model we created earlier.
-                SimpleSpkDetSystem.SpkRecResult verificationResult = alizeSystem.verifySpeaker(speakerName);
+                SimpleSpkDetSystem.SpkRecResult verificationResult = demoSpkRecSystem.verifySpeaker(speakerId);
 
                 if (verificationResult.match) {
                     result = "Match\nScore:\n" + verificationResult.score;
@@ -111,8 +112,8 @@ public class VerificationActivity extends RecordActivity {
 
         try {
             //Reset input, since we will not make any more use of this audio signal.
-            alizeSystem.resetAudio();       //Reset the audio samples of the Alize system.
-            alizeSystem.resetFeatures();    //Reset the features of the Alize system.
+            demoSpkRecSystem.resetAudio();       //Reset the audio samples of the Alize system.
+            demoSpkRecSystem.resetFeatures();    //Reset the features of the Alize system.
         } catch (AlizeException e) {
             e.printStackTrace();
         }

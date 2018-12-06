@@ -11,12 +11,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Locale;
 import java.util.Map;
 
 import AlizeSpkRec.AlizeException;
-import AlizeSpkRec.SimpleSpkDetSystem;
 
 /**
  *  This class is the base activity.
@@ -26,12 +24,12 @@ import AlizeSpkRec.SimpleSpkDetSystem;
  */
 public class BaseActivity extends AppCompatActivity {
 
+    protected SharedPreferences SP;
     protected Locale defaultLanguage;
     /**
      *  Allow to use Alize features.
      */
-    protected SimpleSpkDetSystem alizeSystem;
-    protected SharedPreferences SP;
+    protected DemoSpkRecSystem demoSpkRecSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +38,8 @@ public class BaseActivity extends AppCompatActivity {
         SP = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
 
         try {
-            simpleSpkDetSystemInit();
+            //Initialize the SpeakerRecognition system and get the singleton instance.
+            demoSpkRecSystem = DemoSpkRecSystem.getSharedInstance(BaseActivity.this);
         }
         catch (AlizeException | IOException e) {
             e.printStackTrace();
@@ -73,18 +72,8 @@ public class BaseActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public boolean saveSpeakersModels() {
-        return SP.getBoolean("save_speakers_models", false);
-    }
-
     public int getThreshold() {
-        int result = 30; //default value
-        try {
-            result = Integer.parseInt(SP.getString("threshold", "30"));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return result;
+        return Integer.parseInt(SP.getString("threshold", "30"));
     }
 
     public boolean fancyDemo() {
@@ -117,20 +106,5 @@ public class BaseActivity extends AppCompatActivity {
      */
     protected void makeToast(String text) {
         Toast.makeText(BaseActivity.this, text, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Innitialize the Alize system and call the Alize singleton instance.
-     * @throws IOException Throws if the config or wold model files doesn't exists.
-     * @throws AlizeException Thorws if there was a problem in the Alize system execution.
-     */
-    private void simpleSpkDetSystemInit() throws IOException, AlizeException {
-        // Initialization:
-        alizeSystem = SharedAlize.getInstance(getApplicationContext());
-
-        // We also load the background model from the application assets
-        InputStream backgroundModelAsset = getApplicationContext().getAssets().open("gmm/world.gmm");
-        alizeSystem.loadBackgroundModel(backgroundModelAsset);
-        backgroundModelAsset.close();
     }
 }

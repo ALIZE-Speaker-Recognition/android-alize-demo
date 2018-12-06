@@ -22,7 +22,7 @@ public class EditSpeakerModelActivity extends RecordActivity {
     private EditText editSpeakerName;
     private boolean newSpeaker = false;
     private boolean speakerIdAlreadyExists = false;
-    private String currentSpeakerName, originalSpeakerId;
+    private String currentSpeakerName, originalSpeakerName, speakerId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,14 +31,15 @@ public class EditSpeakerModelActivity extends RecordActivity {
         setContentView(R.layout.edit_speaker_model);
 
         try {
-            speakers = alizeSystem.speakerIDs(); //Get all speakers name.
+            speakers = demoSpkRecSystem.speakerIDs(); //Get all speakers name.
         }
         catch (AlizeException e) {
             e.printStackTrace();
         }
 
         currentSpeakerName = "";
-        String speakerName = getIntent().getStringExtra("speakerName");
+        speakerId = getIntent().getStringExtra("speakerId");
+        String speakerName = demoSpkRecSystem.getSpeakerName(speakerId);
         editSpeakerName = findViewById(R.id.add_speaker_name_editText);
         timeText = findViewById(R.id.timeText);
         startRecordButton = findViewById(R.id.startBtn);
@@ -46,7 +47,7 @@ public class EditSpeakerModelActivity extends RecordActivity {
         updateSpeaker = findViewById(R.id.update_speaker_button);
 
         updateSpeaker.setEnabled(false);
-        originalSpeakerId = speakerName;
+        originalSpeakerName = speakerName;
 
         if (speakerName.isEmpty()) {
             newSpeaker = true;
@@ -95,7 +96,7 @@ public class EditSpeakerModelActivity extends RecordActivity {
                 speakerIdAlreadyExists = false;
 
                 for (String spkId : speakers) {
-                    if (spkId.equals(currentSpeakerName) && !currentSpeakerName.equals(originalSpeakerId)) {
+                    if (demoSpkRecSystem.getSpeakerName(spkId).equals(currentSpeakerName) && !currentSpeakerName.equals(originalSpeakerName)) {
                         speakerIdAlreadyExists = true;
                         break;
                     }
@@ -113,8 +114,18 @@ public class EditSpeakerModelActivity extends RecordActivity {
                 startRecordButton.setVisibility(View.VISIBLE);
                 timeText.setVisibility(View.VISIBLE);
 
-                if (recordExists && !speakerIdAlreadyExists) {
-                    updateSpeaker.setEnabled(true);
+                if (newSpeaker) {
+                    if (recordExists && !speakerIdAlreadyExists) {
+                        updateSpeaker.setEnabled(true);
+                    }
+                }
+                else {
+                    if (recordExists || !speakerIdAlreadyExists) {
+                        updateSpeaker.setEnabled(true);
+                    }
+                    if(!recordExists && currentSpeakerName.equals(originalSpeakerName)) {
+                        updateSpeaker.setEnabled(false);
+                    }
                 }
             }
             else {
@@ -129,21 +140,25 @@ public class EditSpeakerModelActivity extends RecordActivity {
             try {
                 if (newSpeaker) {
                     //Create a speaker model with the data previously normalized with addAudio.
-                    alizeSystem.createSpeakerModel(currentSpeakerName);
+                    demoSpkRecSystem.addAndCreateSpeakerModel(currentSpeakerName);
                 }
-                else if (!originalSpeakerId.equals(currentSpeakerName)) {
+                else if (!originalSpeakerName.equals(currentSpeakerName)) {
+                    demoSpkRecSystem.setSpeakerName(speakerId, currentSpeakerName);
+
                     if (recordExists) {
-                        //TODO modify speaker name in Alize system -> updateSpeakerId(originalSpeakerId, currentSpeakerName)
+                        //Change the model of the speaker with the id currentSpeakerName.
+                        demoSpkRecSystem.adaptSpeakerModel(speakerId);
                     }
                 }
                 else {
                     //Change the model of the speaker with the id currentSpeakerName.
-                    alizeSystem.adaptSpeakerModel(currentSpeakerName);
+                    demoSpkRecSystem.adaptSpeakerModel(speakerId);
                 }
 
                 //Reset input, since we will not make any more use of this audio signal.
-                alizeSystem.resetAudio();       //Reset the audio samples of the Alize system.
-                alizeSystem.resetFeatures();    //Reset the features of the Alize system.
+                demoSpkRecSystem.resetAudio();       //Reset the audio samples of the Alize system.
+                demoSpkRecSystem.resetFeatures();    //Reset the features of the Alize system.
+
                 finish();
             } catch (AlizeException e) {
                 e.printStackTrace();
