@@ -20,7 +20,7 @@ public class VerificationActivity extends RecordActivity {
     private final int ERROR_COLOR = Color.RED;
     private final int SUCCESS_COLOR = Color.rgb(0,150,0);
 
-    private String speakerId;
+    private String speakerId, speakerName, activityName;
     private TextView resultText;
     private boolean identify = false;
 
@@ -31,15 +31,17 @@ public class VerificationActivity extends RecordActivity {
             setContentView(R.layout.verification);
 
             speakerId = getIntent().getStringExtra("speakerId");
-            String speakerName = demoSpkRecSystem.getSpeakerName(speakerId);
+            speakerName = demoSpkRecSystem.getSpeakerName(speakerId);
             resultText = findViewById(R.id.result_text);
             startRecordButton = findViewById(R.id.startBtn);
             stopRecordButton = findViewById(R.id.stopBtn);
             timeText = findViewById(R.id.timeText);
+            activityName = getString(R.string.verification);
 
-            String title = "Verify '" + speakerName + "' Model";
+            String title = getResources().getString(R.string.verify_activity_title, speakerName);
             if (speakerName.isEmpty()) {
                 identify = true;
+                activityName = getString(R.string.identify);
                 title = getResources().getString(R.string.identify_speaker);
             }
             setTitle(title);
@@ -65,7 +67,7 @@ public class VerificationActivity extends RecordActivity {
     }
 
     protected void afterRecordProcessing() {
-        String result = "Error";
+        String result = "";
         resultText.setTextColor(ERROR_COLOR);
 
         if (recordError) {
@@ -83,19 +85,20 @@ public class VerificationActivity extends RecordActivity {
                 SimpleSpkDetSystem.SpkRecResult identificationResult = demoSpkRecSystem.identifySpeaker();
 
                 if (identificationResult.match) {
-                    result = "Match:\n" + demoSpkRecSystem.getSpeakerName(identificationResult.speakerId) + "\nScore:\n" + identificationResult.score;
+                    result = getString(R.string.identify_match_text) + "\n" + demoSpkRecSystem.getSpeakerName(identificationResult.speakerId) + "\n" + getString(R.string.match_score) + "\n" + identificationResult.score;
                     resultText.setTextColor(SUCCESS_COLOR);
                 }
                 else {
-                    result = "No Match\nScore:\n" + identificationResult.score;
+                    result = getString(R.string.identify_no_match_text) + "\n" + getString(R.string.match_score) + "\n" + identificationResult.score;
                     resultText.setTextColor(ERROR_COLOR);
                 }
             }
             catch (AlizeException e) {
                 e.printStackTrace();
+                result = getString(R.string.verification_failed_not_enough_features);
             } catch (Throwable e) { //TODO catch proper exception
                 e.printStackTrace();
-                makeToast(getResources().getString(R.string.recording_not_completed));
+                result = getString(R.string.verification_failed_not_enough_features);
             }
         }
         else {
@@ -106,19 +109,20 @@ public class VerificationActivity extends RecordActivity {
                 SimpleSpkDetSystem.SpkRecResult verificationResult = demoSpkRecSystem.verifySpeaker(speakerId);
 
                 if (verificationResult.match) {
-                    result = "Match\nScore:\n" + verificationResult.score;
+                    result = getString(R.string.verify_match_text) + "\n" + getString(R.string.match_score) + "\n" + verificationResult.score;
                     resultText.setTextColor(SUCCESS_COLOR);
                 }
                 else {
-                    result = "No Match\nScore:\n" + verificationResult.score;
+                    result = getString(R.string.verify_no_match_text, speakerName) + "\n" + getString(R.string.match_score) + "\n" + verificationResult.score;
                     resultText.setTextColor(ERROR_COLOR);
                 }
             }
             catch (AlizeException e) {
                 e.printStackTrace();
+                result = getString(R.string.verification_failed_not_enough_features);
             } catch (Throwable e) { //TODO catch proper exception
                 e.printStackTrace();
-                makeToast(getResources().getString(R.string.recording_not_completed));
+                result = getString(R.string.verification_failed_not_enough_features);
             }
         }
         resultText.setText(result);

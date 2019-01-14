@@ -3,27 +3,27 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <EditTextPreference
-        android:title="Recognition threshold"
+        android:title="@string/settings_threshold_title"
         android:key="threshold"
         android:defaultValue="30"
         android:inputType="numberSigned"
-        android:summary="The threshold for speaker recognition" />
+        android:summary="@string/settings_threshold_summary" />
 
     <SwitchPreference
         android:disableDependentsState="true"
         android:key="save_speakers_models"
-        android:summary="When on, all the speakers models will remain in the system"
-        android:title="Save speakers models" />
+        android:summary="@string/settings_save_speakers_summary"
+        android:title="@string/settings_save_speakers_title" />
 
     <Preference
         android:dependency='save_speakers_models'
-        android:title="Revert speaker list"
+        android:title="@string/settings_revert_speakers_title"
         android:key="reset_speakers_list"
-        android:summary="Reload speaker models from disk"/>
+        android:summary="@string/settings_revert_speakers_summary"/>
 
     <SwitchPreference
-        android:title="Fancy demo"
+        android:title="@string/settings_fancy_demo_title"
         android:key="fancy_demo"
-        android:summary="Pretty render of the demo" />
+        android:summary="@string/settings_fancy_demo_summary" />
 
 </PreferenceScreen>

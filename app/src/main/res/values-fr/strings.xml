@@ -22,4 +22,20 @@
     <string name="no_speech_detected_recoloc">Aucune parole détectée, veuillez réessayer.</string>
     <string name="error_remove_speaker">Une erreur est survenue lors de la supression de cet utilisateur.</string>
     <string name="invalid_threshold">The threshold must be a valid number.</string>
+    <string name="settings_title">Options</string>
+    <string name="settings_threshold_title">Seuil de reconnaisance</string>
+    <string name="settings_threshold_summary">Le seuil déterminé pour la reconnaissance du locuteur</string>
+    <string name="settings_save_speakers_title">Sauvegarder les modèles de locuteurs</string>
+    <string name="settings_save_speakers_summary">Quand activé, tous les modèles seront sauvegardés</string>
+    <string name="settings_revert_speakers_title">Recharger la liste des locuteurs</string>
+    <string name="settings_revert_speakers_summary">Recharge la liste sauvegardée sur le disque</string>
+    <string name="settings_fancy_demo_title">Démonstration élégante</string>
+    <string name="settings_fancy_demo_summary">Version plus ergonomique et plus travaillée de la démo</string>
+    <string name="verify_activity_title">"Vérification du modèle '%1$s'"</string>
+    <string name="verify_match_text">Correspondance trouvée !</string>
+    <string name="verify_no_match_text">"Vous n\'êtes pas '%1$s'"</string>
+    <string name="identify_match_text">Correspond au locuteur :</string>
+    <string name="identify_no_match_text">Aucune correspondance trouvée</string>
+    <string name="match_score">Score :</string>
+    <string name="verification_failed_not_enough_features">Le son ne contenait pas assez de voix.</string>
 </resources>

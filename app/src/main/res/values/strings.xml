@@ -22,4 +22,20 @@
     <string name="no_speech_detected_recoloc">No speech detected, please try again.</string>
     <string name="error_remove_speaker">An error occurred while the system tried to remove this speaker.</string>
     <string name="invalid_threshold">The threshold must be a valid number.</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_threshold_title">Recognition threshold</string>
+    <string name="settings_threshold_summary">The threshold for speaker recognition</string>
+    <string name="settings_save_speakers_title">Save speakers models</string>
+    <string name="settings_save_speakers_summary">When on, all the speakers models will remain in the system</string>
+    <string name="settings_revert_speakers_title">Revert speaker list</string>
+    <string name="settings_revert_speakers_summary">Reload speaker models from disk</string>
+    <string name="settings_fancy_demo_title">Fancy demo</string>
+    <string name="settings_fancy_demo_summary">Pretty render of the demo</string>
+    <string name="verify_activity_title">"Verify '%1$s' Model"</string>
+    <string name="verify_match_text">Match !</string>
+    <string name="verify_no_match_text">"You are not '%1$s'"</string>
+    <string name="identify_match_text">Match:</string>
+    <string name="identify_no_match_text">No match</string>
+    <string name="match_score">Score:</string>
+    <string name="verification_failed_not_enough_features">There was not enough voice in the sound.</string>
 </resources>

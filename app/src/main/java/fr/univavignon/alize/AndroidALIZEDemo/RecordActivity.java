@@ -180,6 +180,7 @@ public class RecordActivity extends BaseActivity {
                             demoSpkRecSystem.addAudio(nextElement);
                         } catch (AlizeException e) {
                             e.printStackTrace();
+                            recordError = true;
                         } catch (Throwable e) { //TODO catch proper exception
                             e.printStackTrace();
                             recordError = true;
@@ -201,6 +202,7 @@ public class RecordActivity extends BaseActivity {
                             demoSpkRecSystem.addAudio(nextElement);
                         } catch (AlizeException e) {
                             e.printStackTrace();
+                            recordError = true;
                         } catch (Throwable e) { //TODO catch proper exception
                             e.printStackTrace();
                             recordError = true;
@@ -263,7 +265,7 @@ public class RecordActivity extends BaseActivity {
             startRecordButton.setVisibility(View.VISIBLE);
 
             String resultText = getResources().getString(R.string.recording_completed);
-            if (!recordExists) {
+            if (recordError) {
                 resultText = getResources().getString(R.string.recording_not_completed);
             }
             makeToast(resultText);
