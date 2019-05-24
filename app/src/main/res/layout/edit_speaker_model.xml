@@ -52,6 +52,8 @@
         android:layout_below="@+id/timeText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:background="#b2dbf2"
+        android:padding="8sp"
         android:text="@string/update_speaker_button" />
 
 </RelativeLayout>

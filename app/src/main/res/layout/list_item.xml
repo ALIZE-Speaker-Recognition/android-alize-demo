@@ -20,15 +20,25 @@
         android:layout_width="0sp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="#b2dbf2"
+        android:layout_marginTop="6sp"
+        android:layout_marginBottom="6sp"
+        android:layout_marginRight="4sp"
+        android:layout_marginEnd="4sp"
         android:gravity="center"
         android:text="@string/update_speaker"
-        android:onClick="updateSpeakerOnClickHandler"/>
+        android:onClick="updateSpeakerOnClickHandler" />
 
     <Button
         android:id="@+id/test_button"
         android:layout_width="0sp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="#b2dbf2"
+        android:layout_marginTop="6sp"
+        android:layout_marginBottom="6sp"
+        android:layout_marginRight="4sp"
+        android:layout_marginEnd="4sp"
         android:text="@string/test_speaker"
         android:onClick="testSpeakerOnClickHandler"/>
 
@@ -38,6 +48,11 @@
         android:layout_height="fill_parent"
         android:layout_weight="0.3"
         android:contentDescription="@string/empty"
+        android:background="#f06944"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:layout_marginRight="4sp"
+        android:layout_marginEnd="4sp"
         android:onClick="removeSpeakerOnClickHandler"
         android:src="@android:drawable/ic_menu_delete" />
 </LinearLayout>
